@@ -126,43 +126,43 @@ while running:
         playerX = 736
 
 #     # Enemy Movement
-#     for i in range(num_of_enemies):
+    for i in range(num_of_enemies):
 
-#         # Game Over
-#         if enemyY[i] > 440:
-#             for j in range(num_of_enemies):
-#                 enemyY[j] = 2000
-#             game_over_text()
-#             break
+        # Game Over
+        if enemyY[i] > 440:
+            for j in range(num_of_enemies):
+                enemyY[j] = 2000
+            game_over_text()
+            break
 
-#         enemyX[i] += enemyX_change[i]
-#         if enemyX[i] <= 0:
-#             enemyX_change[i] = 4
-#             enemyY[i] += enemyY_change[i]
-#         elif enemyX[i] >= 736:
-#             enemyX_change[i] = -4
-#             enemyY[i] += enemyY_change[i]
+        enemyX[i] += enemyX_change[i]
+        if enemyX[i] <= 0:
+            enemyX_change[i] = 4
+            enemyY[i] += enemyY_change[i]
+        elif enemyX[i] >= 736:
+            enemyX_change[i] = -4
+            enemyY[i] += enemyY_change[i]
 
-#         # Collision
-#         collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
-#         if collision:
-#             bulletY = 480
-#             bullet_state = "ready"
-#             score_value += 1
-#             enemyX[i] = random.randint(0, 735)
-#             enemyY[i] = random.randint(50, 150)
+        # Collision
+        collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
+        if collision:
+            bulletY = 480
+            bullet_state = "ready"
+            score_value += 1
+            enemyX[i] = random.randint(0, 735)
+            enemyY[i] = random.randint(50, 150)
 
-#         enemy(enemyX[i], enemyY[i], i)
+        enemy(enemyX[i], enemyY[i], i)
 
-#     # Bullet Movement
-#     if bulletY <= 0:
-#         bulletY = 480
-#         bullet_state = "ready"
+    # Bullet Movement
+    # if bulletY <= 0:
+    #     bulletY = 480
+    #     bullet_state = "ready"
 
-#     if bullet_state is "fire":
-#         fire_bullet(bulletX, bulletY)
-#         bulletY -= bulletY_change
+    # if bullet_state is "fire":
+    #     fire_bullet(bulletX, bulletY)
+    #     bulletY -= bulletY_change
 
-#     player(playerX, playerY)
-#     show_score(textX, textY)
-#     pygame.display.update()
+    # player(playerX, playerY)
+    # show_score(textX, textY)
+    # pygame.display.update()
