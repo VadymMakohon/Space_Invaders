@@ -1,21 +1,17 @@
 # Space Invaders Game
 
-This  is a basic implementation of the Space Invaders game using Pygame. This version includes the player, enemy, and bullet objects, and allows the player to shoot bullets to destroy the enemies.
+Space Invaders is a classic arcade game where the player controls a spaceship that moves horizontally at the bottom of the screen and shoots bullets to destroy incoming enemies. The game gets more challenging as the player progresses.
 
 ## Table of Contents
 
-- [Introduction](#introduction)
+- [Description](#description)
+- [Screenshots](#screenshots)
 - [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Game Controls](#game-controls)
-- [Screenshots](#screenshots)
 - [License](#license)
-
-## Introduction
-
-Space Invaders is a classic arcade game where the player controls a spaceship that moves horizontally at the bottom of the screen and shoots bullets to destroy incoming enemies. The game gets more challenging as the player progresses.
 
 ## Features
 
@@ -49,7 +45,14 @@ Space Invaders is a classic arcade game where the player controls a spaceship th
 4. Place the required images (player.png, enemy.png, bullet.png, and optionally ufo.png) in the same directory as the Python script.
 
 ## Usage
-
 Run the `space_invaders.py` script to start the game:
-```bash
-python space_invaders.py
+    ```bash
+    python space_invaders.py
+
+## Game Controls
+- Left Arrow Key: Move the player to the left
+- Right Arrow Key: Move the player to the right
+- Spacebar: Shoot bullets
+
+## License
+This project is licensed under the MIT License. See the LICENSE file for details.
