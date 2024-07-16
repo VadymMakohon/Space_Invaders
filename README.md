@@ -42,8 +42,8 @@ Space Invaders is a classic arcade game where the player controls a spaceship th
 
 3. Clone this repository or download the code:
     ```bash
-    git clone https://github.com/yourusername/space-invaders-game.git
-    cd space-invaders-game
+    git clone https://github.com/VadymMakohon/Space_Invaders.git
+    cd space-invaders
     ```
 
 4. Place the required images (player.png, enemy.png, bullet.png, and optionally ufo.png) in the same directory as the Python script.
