@@ -119,11 +119,11 @@ while running:
                 playerX_change = 0
 
 #     # Player Movement
-#     playerX += playerX_change
-#     if playerX <= 0:
-#         playerX = 0
-#     elif playerX >= 736:
-#         playerX = 736
+    playerX += playerX_change
+    if playerX <= 0:
+        playerX = 0
+    elif playerX >= 736:
+        playerX = 736
 
 #     # Enemy Movement
 #     for i in range(num_of_enemies):
