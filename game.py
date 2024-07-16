@@ -93,30 +93,30 @@ def isCollision(enemyX, enemyY, bulletX, bulletY):
 
 
 # # Game Loop
-# running = True
-# while running:
+running = True
+while running:
 
-#     # RGB - Red, Green, Blue
-#     screen.fill((0, 0, 0))
+    # RGB - Red, Green, Blue
+    screen.fill((0, 0, 0))
 
-#     for event in pygame.event.get():
-#         if event.type == pygame.QUIT:
-#             running = False
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
 
-#         # If keystroke is pressed check whether its right or left
-#         if event.type == pygame.KEYDOWN:
-#             if event.key == pygame.K_LEFT:
-#                 playerX_change = -5
-#             if event.key == pygame.K_RIGHT:
-#                 playerX_change = 5
-#             if event.key == pygame.K_SPACE:
-#                 if bullet_state is "ready":
-#                     bulletX = playerX
-#                     fire_bullet(bulletX, bulletY)
+        # If keystroke is pressed check whether its right or left
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                playerX_change = -5
+            if event.key == pygame.K_RIGHT:
+                playerX_change = 5
+            if event.key == pygame.K_SPACE:
+                if bullet_state is "ready":
+                    bulletX = playerX
+                    fire_bullet(bulletX, bulletY)
 
-#         if event.type == pygame.KEYUP:
-#             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-#                 playerX_change = 0
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                playerX_change = 0
 
 #     # Player Movement
 #     playerX += playerX_change
