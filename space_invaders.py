@@ -1,12 +1,15 @@
 import pygame
-import math
-import random
 
 # Initialize the pygame
 pygame.init()
 
 # Create the screen
-screen = pygame.display.set_mode((800, 600))
+SCREEN_WIDTH = 750
+SCREEN_HEIGHT = 700
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
+
 
 # Background
 background = pygame.Surface(screen.get_size())
