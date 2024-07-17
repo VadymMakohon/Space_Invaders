@@ -26,6 +26,9 @@ while True:
             pygame.quit()
             sys.exit()
 
+    #Updating
+    spaceship_group.update()
+
     #Drawing
     screen.fill(GREY)
     spaceship_group.draw(screen)
