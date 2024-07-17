@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 
 # Initialize the pygame
 pygame.init()
@@ -12,5 +12,12 @@ pygame.display.set_caption("Python Space Invanders")
 
 clock = pygame.time.Clock()
 
-# #Game Loop
-# while True: 
+#Game Loop
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    pygame.display.update()
+    clock.tick(60)
