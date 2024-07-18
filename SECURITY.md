@@ -18,4 +18,4 @@ We strive to provide timely updates on the status of reported vulnerabilities an
 
 Upon verifying a vulnerability, we will prioritize its resolution and work on releasing a fix as quickly as possible. We are committed to ensuring the security of our users and will provide updates on the progress of vulnerability fixes.
 
-Thank you for helping to keep cADVENTURE_GAME secure.
+Thank you for helping to keep Space Invaders GAME secure.
