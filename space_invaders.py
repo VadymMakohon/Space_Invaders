@@ -89,4 +89,4 @@ while True:
     game.mystery_ship_group.draw(screen)
 
     pygame.display.update()
-    clock.tick(65)
+    clock.tick(60)
