@@ -8,6 +8,10 @@ class Laser(pygame.sprite.Sprite):
 		self.rect = self.image.get_rect(center = position)
 		self.speed = speed
 		self.screen_height = screen_height
+		# Load laser sound
+		self.shoot_sound = pygame.mixer.Sound("sounds/laser_shoot.wav")
+		self.shoot_sound.play()
+
 
 	def update(self):
 		self.rect.y -= self.speed
