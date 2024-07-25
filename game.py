@@ -4,7 +4,6 @@ from obstacle import Obstacle, grid
 from alien import Alien
 from laser import Laser
 from alien import MysteryShip
-
 class Game:
     def __init__(self, screen_width, screen_height, offset):
         self.screen_width = screen_width
