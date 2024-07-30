@@ -8,7 +8,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.offset = offset
-        self.is_ai = is_ai  # Add this flag to switch between player and AI
+        self.is_ai = is_ai
         self.image = pygame.image.load("Graphics/spaceship.png").convert_alpha()
         self.rect = self.image.get_rect(midbottom=((self.screen_width + self.offset) / 2, self.screen_height - 10))
         self.speed = 6
@@ -17,7 +17,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.laser_time = 0
         self.laser_delay = 300  # milliseconds
         self.laser_sound = pygame.mixer.Sound("Sounds/laser.ogg")
-        self.ai_timer = pygame.time.get_ticks()  # Timer for AI actions
+        self.ai_timer = pygame.time.get_ticks()
 
     def get_user_input(self):
         if self.is_ai:
@@ -33,7 +33,6 @@ class Spaceship(pygame.sprite.Sprite):
 
     def ai_behavior(self):
         current_time = pygame.time.get_ticks()
-        # Simple AI logic: move randomly and shoot lasers at random intervals
         if current_time - self.ai_timer > 1000:  # Change direction every second
             self.ai_timer = current_time
             move_choice = random.choice(['left', 'right', 'shoot'])
@@ -46,7 +45,7 @@ class Spaceship(pygame.sprite.Sprite):
 
     def shoot_laser(self):
         self.laser_ready = False
-        laser = Laser(self.rect.center, 10, self.screen_height)  # Increased laser speed
+        laser = Laser(self.rect.center, 10, self.screen_height)
         self.lasers_group.add(laser)
         self.laser_time = pygame.time.get_ticks()
         self.laser_sound.play()
