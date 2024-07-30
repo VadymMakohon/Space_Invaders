@@ -1,14 +1,12 @@
 import pygame
-import random
 from laser import Laser
 
 class Spaceship(pygame.sprite.Sprite):
-    def __init__(self, screen_width, screen_height, offset, is_ai=False):
+    def __init__(self, screen_width, screen_height, offset):
         super().__init__()
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.offset = offset
-        self.is_ai = is_ai
         self.image = pygame.image.load("Graphics/spaceship.png").convert_alpha()
         self.rect = self.image.get_rect(midbottom=((self.screen_width + self.offset) / 2, self.screen_height - 10))
         self.speed = 16   # Adjust this value to increase/decrease speed
@@ -17,31 +15,15 @@ class Spaceship(pygame.sprite.Sprite):
         self.laser_time = 0
         self.laser_delay = 300  # milliseconds
         self.laser_sound = pygame.mixer.Sound("Sounds/laser.ogg")
-        self.ai_timer = pygame.time.get_ticks()
 
     def get_user_input(self):
-        if self.is_ai:
-            self.ai_behavior()
-        else:
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_RIGHT] and self.rect.right < self.screen_width + self.offset:
-                self.rect.x += self.speed
-            if keys[pygame.K_LEFT] and self.rect.left > self.offset:
-                self.rect.x -= self.speed
-            if keys[pygame.K_SPACE] and self.laser_ready:
-                self.shoot_laser()
-
-    def ai_behavior(self):
-        current_time = pygame.time.get_ticks()
-        if current_time - self.ai_timer > 300:  # AI shoots every 300 milliseconds
-            self.ai_timer = current_time
-            move_choice = random.choice(['left', 'right', 'shoot'])
-            if move_choice == 'left' and self.rect.left > self.offset:
-                self.rect.x -= self.speed
-            elif move_choice == 'right' and self.rect.right < self.screen_width + self.offset:
-                self.rect.x += self.speed
-            elif move_choice == 'shoot' and self.laser_ready:
-                self.shoot_laser()
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_RIGHT] and self.rect.right < self.screen_width + self.offset:
+            self.rect.x += self.speed
+        if keys[pygame.K_LEFT] and self.rect.left > self.offset:
+            self.rect.x -= self.speed
+        if keys[pygame.K_SPACE] and self.laser_ready:
+            self.shoot_laser()
 
     def shoot_laser(self):
         self.laser_ready = False
@@ -52,7 +34,6 @@ class Spaceship(pygame.sprite.Sprite):
 
     def update(self):
         self.get_user_input()
-        self.avoid_lasers()  # Ensure this method exists and works correctly
         self.constrain_movement()
         self.lasers_group.update()
         self.recharge_laser()

@@ -10,25 +10,17 @@ class Game:
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.offset = offset
-        self.spaceship_group = pygame.sprite.GroupSingle()
         
-        # Create laser groups
-        self.spaceship_lasers_group = pygame.sprite.Group()
-        self.alien_lasers_group = pygame.sprite.Group()
-
-        # Initialize player spaceship
-        self.spaceship_group.add(Spaceship(self.screen_width, self.screen_height, self.offset, is_ai=False, laser_group=self.spaceship_lasers_group))
-
-        # Initialize AI spaceship
-        self.ai_spaceship = Spaceship(self.screen_width, self.screen_height, self.offset, is_ai=True, laser_group=self.alien_lasers_group)
-        self.spaceship_group.add(self.ai_spaceship)
-
-        # Initialize obstacles, aliens, etc.
+        # Initialize the player spaceship
+        self.spaceship_group = pygame.sprite.GroupSingle()
+        self.spaceship_group.add(Spaceship(self.screen_width, self.screen_height, self.offset))
+        
         self.obstacles = self.create_obstacles()
         self.aliens_group = pygame.sprite.Group()
         self.level = 1  # Initialize level
         self.create_aliens()
         self.aliens_direction = 1
+        self.alien_lasers_group = pygame.sprite.Group()
         self.mystery_ship_group = pygame.sprite.GroupSingle()
         self.lives = 3
         self.run = True
@@ -93,8 +85,9 @@ class Game:
 
     def check_for_collisions(self):
         # Spaceship
-        if self.spaceship_lasers_group:
-            for laser_sprite in self.spaceship_lasers_group:
+        if self.spaceship_group.sprite.lasers_group:
+            for laser_sprite in self.spaceship_group.sprite.lasers_group:
+                
                 aliens_hit = pygame.sprite.spritecollide(laser_sprite, self.aliens_group, True)
                 if aliens_hit:
                     self.explosion_sound.play()
@@ -172,15 +165,3 @@ class Game:
                 self.highscore = int(file.read())
         except FileNotFoundError:
             self.highscore = 0
-
-    def update(self):
-        # Update all sprite groups
-        self.spaceship_group.update()
-        self.aliens_group.update()
-        self.alien_lasers_group.update()
-        self.spaceship_lasers_group.update()
-
-        # Handle collisions
-        self.check_for_collisions()
-        # Move aliens and other game mechanics
-        self.move_aliens()
