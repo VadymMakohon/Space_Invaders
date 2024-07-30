@@ -36,11 +36,26 @@ def display_message(message, x, y, color):
 
 def show_end_screen():
     screen.fill(GREY)
-    display_message("GAME OVER", SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 100, YELLOW)
+    
+    # Draw the yellow boxes
     pygame.draw.rect(screen, YELLOW, (200, 400, 150, 50))
     pygame.draw.rect(screen, YELLOW, (400, 400, 150, 50))
-    display_message("Play Again", 210, 410, BLACK)
-    display_message("Quit", 450, 410, BLACK)
+    
+    # Display the game over message
+    display_message("GAME OVER", SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 100, YELLOW)
+    
+    # Display "Play Again" text centered in the first box
+    play_again_text = "Play Again"
+    play_again_text_surface = font.render(play_again_text, False, BLACK)
+    play_again_text_rect = play_again_text_surface.get_rect(center=(275, 425))  # Center of the first box
+    screen.blit(play_again_text_surface, play_again_text_rect)
+    
+    # Display "Quit" text centered in the second box
+    quit_text = "Quit"
+    quit_text_surface = font.render(quit_text, False, BLACK)
+    quit_text_rect = quit_text_surface.get_rect(center=(475, 425))  # Center of the second box
+    screen.blit(quit_text_surface, quit_text_rect)
+    
     pygame.display.update()
 
     while True:
