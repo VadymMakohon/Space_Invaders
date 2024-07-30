@@ -41,7 +41,7 @@ while True:
             pygame.time.set_timer(MYSTERYSHIP, random.randint(4000, 8000))
 
     if game.run:
-        game.spaceship_group.update()  # Make sure this line is present
+        game.spaceship_group.update()  # Update the player's spaceship (and AI if present)
         game.move_aliens()
         game.alien_lasers_group.update()
         game.mystery_ship_group.update()
@@ -74,13 +74,13 @@ while True:
     highscore_surface = font.render(formatted_highscore, False, YELLOW)
     screen.blit(highscore_surface, (625, 40, 50, 50))
 
-    game.spaceship_group.draw(screen)
-    game.spaceship_group.sprite.lasers_group.draw(screen)
+    game.spaceship_group.draw(screen)  # Draw the player's spaceship (and AI if present)
+    game.spaceship_group.sprite.lasers_group.draw(screen)  # Draw player's lasers
     for obstacle in game.obstacles:
         obstacle.blocks_group.draw(screen)
     game.aliens_group.draw(screen)
-    game.alien_lasers_group.draw(screen)
-    game.mystery_ship_group.draw(screen)
+    game.alien_lasers_group.draw(screen)  # Draw alien lasers
+    game.mystery_ship_group.draw(screen)  # Draw the mystery ship
 
     pygame.display.update()
     clock.tick(60)
