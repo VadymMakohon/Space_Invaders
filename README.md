@@ -1,6 +1,6 @@
 # Space Invaders Game
 
-🚀🕹️🐍 Space Invaders is a classic arcade game where the player controls a spaceship that moves horizontally at the bottom of the screen and shoots bullets to destroy incoming enemies. The game gets more challenging as the player progresses.
+🚀🕹️🐍 Space Invaders is a classic arcade game where the player controls a spaceship that moves horizontally at the bottom of the screen and shoots bullets to destroy incoming enemies. The game gets more challenging as the player progresses. To make the game even more intresting i implemented AI to it, so the ship moves and fires by itself.
 
 # Screenshot
 <p align="center">
