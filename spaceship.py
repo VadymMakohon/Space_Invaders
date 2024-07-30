@@ -11,7 +11,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.is_ai = is_ai
         self.image = pygame.image.load("Graphics/spaceship.png").convert_alpha()
         self.rect = self.image.get_rect(midbottom=((self.screen_width + self.offset) / 2, self.screen_height - 10))
-        self.speed = 16   # Adjust this value to increase/decrease speed
+        self.speed = 16  # Adjust this value to increase/decrease speed
         self.lasers_group = pygame.sprite.Group()
         self.laser_ready = True
         self.laser_time = 0
@@ -45,7 +45,7 @@ class Spaceship(pygame.sprite.Sprite):
 
     def shoot_laser(self):
         self.laser_ready = False
-        laser = Laser(self.rect.center, 20, self.screen_height) # Adjust laser speed here if needed
+        laser = Laser(self.rect.center, 20, self.screen_height)  # Adjust laser speed here if needed
         self.lasers_group.add(laser)
         self.laser_time = pygame.time.get_ticks()
         self.laser_sound.play()
@@ -56,6 +56,21 @@ class Spaceship(pygame.sprite.Sprite):
         self.constrain_movement()
         self.lasers_group.update()
         self.recharge_laser()
+
+    def avoid_lasers(self):
+        # Avoid lasers coming from any direction
+        for laser in pygame.sprite.spritecollide(self, self.lasers_group, False):
+            if laser.is_ai:
+                # Laser is from AI, so move away
+                if laser.rect.y < self.rect.centery:  # Laser is approaching
+                    if laser.rect.centerx < self.rect.centerx:
+                        self.rect.x -= self.speed  # Move left
+                    else:
+                        self.rect.x += self.speed  # Move right
+
+                    # Constrain movement to screen bounds
+                    self.constrain_movement()
+                    break  # Avoid multiple adjustments if lasers are close
 
     def constrain_movement(self):
         if self.rect.right > self.screen_width + self.offset:
