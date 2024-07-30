@@ -1,4 +1,3 @@
-
 import pygame, random
 
 class Alien(pygame.sprite.Sprite):

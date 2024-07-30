@@ -4,7 +4,6 @@ from obstacle import Obstacle, grid
 from alien import Alien
 from laser import Laser
 from alien import MysteryShip
-from powerup import PowerUp
 
 class Game:
     def __init__(self, screen_width, screen_height, offset):
@@ -22,7 +21,6 @@ class Game:
         self.aliens_direction = 1
         self.alien_lasers_group = pygame.sprite.Group()
         self.mystery_ship_group = pygame.sprite.GroupSingle()
-        self.powerups_group = pygame.sprite.Group()
         self.lives = 3
         self.run = True
         self.score = 0
@@ -97,12 +95,6 @@ class Game:
                         self.check_for_highscore()
                         laser_sprite.kill()
 
-                        # Random chance to drop a power-up
-                        if random.random() < 0.1:  # 10% chance
-                            powerup_type = random.choice(['double_laser', 'shield', 'speed_boost'])
-                            powerup = PowerUp(powerup_type, alien.rect.x, alien.rect.y)
-                            self.powerups_group.add(powerup)
-
                 if pygame.sprite.spritecollide(laser_sprite, self.mystery_ship_group, True):
                     self.score += 500
                     self.explosion_sound.play()
@@ -133,13 +125,6 @@ class Game:
 
                 if pygame.sprite.spritecollide(alien, self.spaceship_group, False):
                     self.game_over()
-
-        # Check for power-up collection
-        if self.powerups_group:
-            for powerup in self.powerups_group:
-                if pygame.sprite.spritecollide(powerup, self.spaceship_group, False):
-                    self.spaceship_group.sprite.apply_powerup(powerup.type)
-                    powerup.kill()
 
         # Check if all aliens are defeated
         if not self.aliens_group:
