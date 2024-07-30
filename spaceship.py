@@ -3,16 +3,16 @@ import random
 from laser import Laser
 
 class Spaceship(pygame.sprite.Sprite):
-    def __init__(self, screen_width, screen_height, offset, is_ai=False):
+    def __init__(self, screen_width, screen_height, offset, is_ai=False, laser_group=None):
         super().__init__()
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.offset = offset
         self.is_ai = is_ai
+        self.lasers_group = laser_group if laser_group else pygame.sprite.Group()
         self.image = pygame.image.load("Graphics/spaceship.png").convert_alpha()
         self.rect = self.image.get_rect(midbottom=((self.screen_width + self.offset) / 2, self.screen_height - 10))
         self.speed = 16  # Adjust this value to increase/decrease speed
-        self.lasers_group = pygame.sprite.Group()
         self.laser_ready = True
         self.laser_time = 0
         self.laser_delay = 300  # milliseconds
@@ -52,25 +52,25 @@ class Spaceship(pygame.sprite.Sprite):
 
     def update(self):
         self.get_user_input()
-        self.avoid_lasers()  # New method for collision avoidance
+        if self.is_ai:
+            self.avoid_lasers()  # AI collision avoidance
         self.constrain_movement()
         self.lasers_group.update()
         self.recharge_laser()
 
     def avoid_lasers(self):
-        # Avoid lasers coming from any direction
+        # AI strategy to avoid lasers
         for laser in pygame.sprite.spritecollide(self, self.lasers_group, False):
-            if laser.is_ai:
-                # Laser is from AI, so move away
-                if laser.rect.y < self.rect.centery:  # Laser is approaching
-                    if laser.rect.centerx < self.rect.centerx:
-                        self.rect.x -= self.speed  # Move left
-                    else:
-                        self.rect.x += self.speed  # Move right
+            if laser.rect.y > self.rect.top:  # Laser is approaching
+                # Move away from the laser's horizontal direction
+                if laser.rect.centerx < self.rect.centerx and self.rect.left > self.offset:
+                    self.rect.x -= self.speed  # Move left
+                elif laser.rect.centerx > self.rect.centerx and self.rect.right < self.screen_width + self.offset:
+                    self.rect.x += self.speed  # Move right
 
-                    # Constrain movement to screen bounds
-                    self.constrain_movement()
-                    break  # Avoid multiple adjustments if lasers are close
+                # Constrain movement to screen bounds
+                self.constrain_movement()
+                break  # Avoid multiple adjustments if lasers are close
 
     def constrain_movement(self):
         if self.rect.right > self.screen_width + self.offset:
