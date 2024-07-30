@@ -30,25 +30,18 @@ MYSTERYSHIP = pygame.USEREVENT + 1
 pygame.time.set_timer(MYSTERYSHIP, random.randint(4000, 8000))
 
 while True:
-    # Checking for events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
         if event.type == SHOOT_LASER and game.run:
             game.alien_shoot_laser()
-
         if event.type == MYSTERYSHIP and game.run:
             game.create_mystery_ship()
             pygame.time.set_timer(MYSTERYSHIP, random.randint(4000, 8000))
 
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_SPACE] and game.run == False:
-            game.reset()
-
-    # Updating
     if game.run:
-        game.spaceship_group.update()
+        game.spaceship_group.update()  # Make sure this line is present
         game.move_aliens()
         game.alien_lasers_group.update()
         game.mystery_ship_group.update()

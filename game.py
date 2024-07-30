@@ -16,6 +16,7 @@ class Game:
         self.level = 1  # Initialize level
         self.create_aliens()
         self.aliens_direction = 1
+        self.spaceship_group.add(Spaceship(self.screen_width, self.screen_height, self.offset, is_ai=True))
         self.alien_lasers_group = pygame.sprite.Group()
         self.mystery_ship_group = pygame.sprite.GroupSingle()
         self.lives = 3
