@@ -11,7 +11,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.is_ai = is_ai
         self.image = pygame.image.load("Graphics/spaceship.png").convert_alpha()
         self.rect = self.image.get_rect(midbottom=((self.screen_width + self.offset) / 2, self.screen_height - 10))
-        self.speed = 6
+        self.speed = 16   # Adjust this value to increase/decrease speed
         self.lasers_group = pygame.sprite.Group()
         self.laser_ready = True
         self.laser_time = 0
