@@ -3,7 +3,7 @@ import random
 from laser import Laser
 
 class Spaceship(pygame.sprite.Sprite):
-    def __init__(self, screen_width, screen_height, offset, is_ai=False, laser_group=None):
+    def __init__(self, screen_width, screen_height, offset, is_ai=False):
         super().__init__()
         self.screen_width = screen_width
         self.screen_height = screen_height
@@ -12,7 +12,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.image = pygame.image.load("Graphics/spaceship.png").convert_alpha()
         self.rect = self.image.get_rect(midbottom=((self.screen_width + self.offset) / 2, self.screen_height - 10))
         self.speed = 16   # Adjust this value to increase/decrease speed
-        self.lasers_group = laser_group if laser_group else pygame.sprite.Group()
+        self.lasers_group = pygame.sprite.Group()
         self.laser_ready = True
         self.laser_time = 0
         self.laser_delay = 300  # milliseconds
@@ -32,10 +32,8 @@ class Spaceship(pygame.sprite.Sprite):
                 self.shoot_laser()
 
     def ai_behavior(self):
-        self.avoid_lasers()  # Check and avoid lasers
-
         current_time = pygame.time.get_ticks()
-        if current_time - self.ai_timer > 300:  # Adjust this value for faster or slower shooting
+        if current_time - self.ai_timer > 300:  # AI shoots every 300 milliseconds
             self.ai_timer = current_time
             move_choice = random.choice(['left', 'right', 'shoot'])
             if move_choice == 'left' and self.rect.left > self.offset:
@@ -45,27 +43,16 @@ class Spaceship(pygame.sprite.Sprite):
             elif move_choice == 'shoot' and self.laser_ready:
                 self.shoot_laser()
 
-    def avoid_lasers(self):
-        if self.is_ai:
-            # Check for lasers coming towards the AI spaceship
-            for laser in self.lasers_group:
-                if laser.rect.y < self.rect.y + 50:  # Only consider lasers above the spaceship
-                    if abs(laser.rect.x - self.rect.x) < 50:  # Adjust distance as needed
-                        # Move away from the laser
-                        if laser.rect.x < self.rect.x and self.rect.left > self.offset:
-                            self.rect.x -= self.speed
-                        elif laser.rect.x > self.rect.x and self.rect.right < self.screen_width + self.offset:
-                            self.rect.x += self.speed
-
     def shoot_laser(self):
         self.laser_ready = False
-        laser = Laser(self.rect.center, 20, self.screen_height) # Adjust laser speed here if needed
+        laser = Laser(self.rect.center, 20, self.screen_height)  # Adjust laser speed here if needed
         self.lasers_group.add(laser)
         self.laser_time = pygame.time.get_ticks()
         self.laser_sound.play()
 
     def update(self):
         self.get_user_input()
+        self.avoid_lasers()  # Ensure this method exists and works correctly
         self.constrain_movement()
         self.lasers_group.update()
         self.recharge_laser()
