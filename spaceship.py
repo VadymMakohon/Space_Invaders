@@ -8,7 +8,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.offset = offset
-        self.is_ai = is_ai  # Flag to determine if the spaceship is controlled by AI
+        self.is_ai = is_ai  # Add this flag to switch between player and AI
         self.image = pygame.image.load("Graphics/spaceship.png").convert_alpha()
         self.rect = self.image.get_rect(midbottom=((self.screen_width + self.offset) / 2, self.screen_height - 10))
         self.speed = 6
@@ -17,10 +17,11 @@ class Spaceship(pygame.sprite.Sprite):
         self.laser_time = 0
         self.laser_delay = 300  # milliseconds
         self.laser_sound = pygame.mixer.Sound("Sounds/laser.ogg")
+        self.ai_timer = pygame.time.get_ticks()  # Timer for AI actions
 
     def get_user_input(self):
         if self.is_ai:
-            self.ai_control()
+            self.ai_behavior()
         else:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_RIGHT] and self.rect.right < self.screen_width + self.offset:
@@ -30,17 +31,18 @@ class Spaceship(pygame.sprite.Sprite):
             if keys[pygame.K_SPACE] and self.laser_ready:
                 self.shoot_laser()
 
-    def ai_control(self):
-        # Simple AI logic for demonstration purposes
-        # Move right if at the left edge, move left if at the right edge
-        if self.rect.right >= self.screen_width + self.offset:
-            self.rect.x -= self.speed
-        elif self.rect.left <= self.offset:
-            self.rect.x += self.speed
-
-        # Shoot laser randomly
-        if self.laser_ready and random.random() < 0.01:  # 1% chance to shoot each frame
-            self.shoot_laser()
+    def ai_behavior(self):
+        current_time = pygame.time.get_ticks()
+        # Simple AI logic: move randomly and shoot lasers at random intervals
+        if current_time - self.ai_timer > 1000:  # Change direction every second
+            self.ai_timer = current_time
+            move_choice = random.choice(['left', 'right', 'shoot'])
+            if move_choice == 'left' and self.rect.left > self.offset:
+                self.rect.x -= self.speed
+            elif move_choice == 'right' and self.rect.right < self.screen_width + self.offset:
+                self.rect.x += self.speed
+            elif move_choice == 'shoot' and self.laser_ready:
+                self.shoot_laser()
 
     def shoot_laser(self):
         self.laser_ready = False
