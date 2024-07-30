@@ -1,12 +1,14 @@
 import pygame
+import random
 from laser import Laser
 
 class Spaceship(pygame.sprite.Sprite):
-    def __init__(self, screen_width, screen_height, offset):
+    def __init__(self, screen_width, screen_height, offset, is_ai=False):
         super().__init__()
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.offset = offset
+        self.is_ai = is_ai  # Flag to determine if the spaceship is controlled by AI
         self.image = pygame.image.load("Graphics/spaceship.png").convert_alpha()
         self.rect = self.image.get_rect(midbottom=((self.screen_width + self.offset) / 2, self.screen_height - 10))
         self.speed = 6
@@ -17,13 +19,27 @@ class Spaceship(pygame.sprite.Sprite):
         self.laser_sound = pygame.mixer.Sound("Sounds/laser.ogg")
 
     def get_user_input(self):
-        keys = pygame.key.get_pressed()
+        if self.is_ai:
+            self.ai_control()
+        else:
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_RIGHT] and self.rect.right < self.screen_width + self.offset:
+                self.rect.x += self.speed
+            if keys[pygame.K_LEFT] and self.rect.left > self.offset:
+                self.rect.x -= self.speed
+            if keys[pygame.K_SPACE] and self.laser_ready:
+                self.shoot_laser()
 
-        if keys[pygame.K_RIGHT] and self.rect.right < self.screen_width + self.offset:
-            self.rect.x += self.speed
-        if keys[pygame.K_LEFT] and self.rect.left > self.offset:
+    def ai_control(self):
+        # Simple AI logic for demonstration purposes
+        # Move right if at the left edge, move left if at the right edge
+        if self.rect.right >= self.screen_width + self.offset:
             self.rect.x -= self.speed
-        if keys[pygame.K_SPACE] and self.laser_ready:
+        elif self.rect.left <= self.offset:
+            self.rect.x += self.speed
+
+        # Shoot laser randomly
+        if self.laser_ready and random.random() < 0.01:  # 1% chance to shoot each frame
             self.shoot_laser()
 
     def shoot_laser(self):
