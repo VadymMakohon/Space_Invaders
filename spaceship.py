@@ -33,7 +33,7 @@ class Spaceship(pygame.sprite.Sprite):
 
     def ai_behavior(self):
         current_time = pygame.time.get_ticks()
-        if current_time - self.ai_timer > 1000:  # Change direction every second
+        if current_time - self.ai_timer > 300:  # Adjust this value for faster or slower shooting
             self.ai_timer = current_time
             move_choice = random.choice(['left', 'right', 'shoot'])
             if move_choice == 'left' and self.rect.left > self.offset:

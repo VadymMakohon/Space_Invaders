@@ -10,6 +10,6 @@ class Laser(pygame.sprite.Sprite):
 		self.screen_height = screen_height
 
 	def update(self):
-		self.rect.y -= self.speed
-		if self.rect.y > self.screen_height + 15 or self.rect.y < 0:
-			self.kill()
+        self.rect.y += self.speed
+        if self.rect.bottom < 0 or self.rect.top > self.screen_height:
+            self.kill()
