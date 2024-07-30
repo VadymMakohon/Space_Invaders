@@ -52,6 +52,7 @@ class Spaceship(pygame.sprite.Sprite):
 
     def update(self):
         self.get_user_input()
+        self.avoid_lasers()  # New method for collision avoidance
         self.constrain_movement()
         self.lasers_group.update()
         self.recharge_laser()
