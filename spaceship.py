@@ -45,7 +45,7 @@ class Spaceship(pygame.sprite.Sprite):
 
     def shoot_laser(self):
         self.laser_ready = False
-        laser = Laser(self.rect.center, 10, self.screen_height)
+        laser = Laser(self.rect.center, 20, self.screen_height) # Adjust laser speed here if needed
         self.lasers_group.add(laser)
         self.laser_time = pygame.time.get_ticks()
         self.laser_sound.play()
