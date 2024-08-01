@@ -61,3 +61,6 @@ Run the `space_invaders.py` script to start the game:
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
+
+# Contributors
+- [Vadym Makohon](https://github.com/VadymMakohon)
