@@ -59,8 +59,13 @@ Run the `space_invaders.py` script to start the game:
 - Right Arrow Key: Move the player to the right
 - Spacebar: Shoot bullets
 
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
+## 📜 License
+
+This repository is for educational purposes only and has an MIT License
+
+### Show your support
+
+Give a ⭐ if you like these projects!
 
 # Contributors
 - [Vadym Makohon](https://github.com/VadymMakohon)
